@@ -10,7 +10,7 @@ import UIKit
 
 class MasterViewController: UITableViewController {
     
-    let stubData = StubData()
+    var stubData = StubData()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,25 +18,19 @@ class MasterViewController: UITableViewController {
         
         navigationItem.leftBarButtonItem = editButtonItem
         
-/*      Code to add a new functionality to add a new button goes here. Need to set up story board first and then write insertNewObject function...
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-        navigationItem.rightBarButtonItem = addButton */
+        navigationItem.rightBarButtonItem = addButton
         
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+    @objc func insertNewObject(_ sender: Any) {
+        performSegue(withIdentifier: "newReminderSegue", sender: self)
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stubData.names.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath)
-        cell.textLabel?.text = stubData.names[indexPath.row]
-        return cell
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showReminderSegue", let destination = segue.destination as? ReminderDetailViewController, let index = tableView.indexPathForSelectedRow?.row {
+            destination.labelText = stubData.names[index]
+        }
     }
 
 }
-

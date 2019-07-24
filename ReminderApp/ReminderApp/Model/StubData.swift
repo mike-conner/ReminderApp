@@ -9,5 +9,5 @@
 import Foundation
 
 class StubData {
-    let names = ["bob", "jack", "harry", "tom", "larry"]
+    var names = ["bob", "jack", "harry", "tom", "larry"]
 }
