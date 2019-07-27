@@ -15,7 +15,7 @@ class CoreDataManager {
     private init() {}
     
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Reminder")
+        let container = NSPersistentContainer(name: "ReminderApp")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -79,20 +79,38 @@ class CoreDataManager {
     }
     
     // Update a reminder
-    func updateReminder (reminderDescription: String, reminderLocation: String, reminderActivatedWhenEntering: Bool, reminderLatitude: Double, reminderLongitude: Double, reminder: Reminder) {
+    func updateReminder (reminderDescription: String, reminderLocation: String, isEntering: Bool, reminderLatitude: Double, reminderLongitude: Double, reminder: Reminder) {
         let context = CoreDataManager.sharedManager.persistentContainer.viewContext
         
         reminder.setValue(reminderDescription, forKey: "reminderDescription")
         reminder.setValue(reminderLocation, forKey: "reminderLocation")
-        reminder.setValue(reminderActivatedWhenEntering, forKey: "isEntering")
+        reminder.setValue(isEntering, forKey: "isEntering")
         reminder.setValue(reminderLatitude, forKey: "reminderLatitude")
         reminder.setValue(reminderLongitude, forKey: "reminderLongitude")
         
         do {
             try context.save()
-            print("saved")
+            print("updated")
         } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
+            print("Could not update \(error), \(error.userInfo)")
+        }
+    }
+    
+    // Update a reminder - testing function only!
+    func updateReminder (reminderDescription: String, isEntering: Bool, reminder: Reminder) {
+        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
+        
+        reminder.setValue(reminderDescription, forKey: "reminderDescription")
+        reminder.setValue("No Location Entered", forKey: "reminderLocation")
+        reminder.setValue(isEntering, forKey: "isEntering")
+        reminder.setValue(0.0, forKey: "reminderLatitude")
+        reminder.setValue(0.0, forKey: "reminderLongitude")
+        
+        do {
+            try context.save()
+            print("updated")
+        } catch let error as NSError {
+            print("Could not update \(error), \(error.userInfo)")
         }
     }
     

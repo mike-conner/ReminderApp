@@ -12,18 +12,15 @@ import CoreData
 class ReminderDetailViewController: UIViewController {
     
     var reminders: [NSManagedObject] = []
-    
-    
+    var selectedReminder: NSManagedObject?
     
     @IBOutlet weak var reminderDescriptionTextField: UITextField!
     @IBOutlet weak var isEnteringSegementedControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveReminder(_:)))
         navigationItem.rightBarButtonItem = saveButton
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,15 +28,30 @@ class ReminderDetailViewController: UIViewController {
         fetchAllReminders()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if selectedReminder != nil {
+            reminderDescriptionTextField.text = selectedReminder?.value(forKey: "reminderDescription") as? String
+            if selectedReminder?.value(forKey: "isEntering") as! Bool == true {
+                isEnteringSegementedControl.selectedSegmentIndex = 0
+            } else {
+                isEnteringSegementedControl.selectedSegmentIndex = 1
+            }
+        }
+    }
+    
     @objc func saveReminder(_ sender: Any) {
         var isEnteringStatus: Bool = true
-        if reminderDescriptionTextField.text != "" {
-            if isEnteringSegementedControl.tag == 0 {
+        if let reminderDescriptionText = reminderDescriptionTextField.text {
+            if isEnteringSegementedControl.selectedSegmentIndex == 0 {
                 isEnteringStatus = true
             } else {
                 isEnteringStatus = false
             }
-            saveReminder(reminderDescription: description, isEntering: isEnteringStatus)
+            if selectedReminder != nil {
+                updateReminder(reminderDescription: reminderDescriptionText, isEntering: isEnteringStatus, reminder: selectedReminder as! Reminder)
+            } else {
+                saveReminder(reminderDescription: reminderDescriptionText, isEntering: isEnteringStatus)
+            }
         }
     }
     
@@ -55,8 +67,13 @@ class ReminderDetailViewController: UIViewController {
         if let reminder = CoreDataManager.sharedManager.insertNewReminder(reminderDescription: reminderDescription, isEntering: isEntering) {
             reminders.append(reminder)
         }
+        performSegue(withIdentifier: "saveUnwindSegue", sender: self)
     }
     
+    func updateReminder(reminderDescription: String, isEntering: Bool, reminder: Reminder) {
+        CoreDataManager.sharedManager.updateReminder(reminderDescription: reminderDescription, isEntering: isEntering, reminder: reminder)
+        performSegue(withIdentifier: "saveUnwindSegue", sender: self)
+    }
     
 }
 

@@ -19,7 +19,6 @@
 		13C021D222E904040094192D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13C021D022E904040094192D /* LaunchScreen.storyboard */; };
 		13C021DD22E905D80094192D /* ReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C021DC22E905D80094192D /* ReminderCell.swift */; };
 		13C021E622E910510094192D /* ReminderDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C021E522E910510094192D /* ReminderDetailController.swift */; };
-		13C021E922E918990094192D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C021E822E918990094192D /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +36,6 @@
 		13C021D322E904040094192D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13C021DC22E905D80094192D /* ReminderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderCell.swift; sourceTree = "<group>"; };
 		13C021E522E910510094192D /* ReminderDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderDetailController.swift; sourceTree = "<group>"; };
-		13C021E822E918990094192D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +121,6 @@
 		13C021E722E9187D0094192D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				13C021E822E918990094192D /* Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -201,7 +198,6 @@
 			files = (
 				13C021C722E904030094192D /* MasterViewController.swift in Sources */,
 				130B7D5922EBD35700A7907D /* Reminder+CoreDataClass.swift in Sources */,
-				13C021E922E918990094192D /* Extensions.swift in Sources */,
 				13C021CD22E904030094192D /* ReminderApp.xcdatamodeld in Sources */,
 				130B7D5022EBA81E00A7907D /* MapViewController.swift in Sources */,
 				13C021C522E904030094192D /* AppDelegate.swift in Sources */,

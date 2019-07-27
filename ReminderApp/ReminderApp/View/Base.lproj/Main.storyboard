@@ -128,9 +128,11 @@
                     <connections>
                         <outlet property="isEnteringSegementedControl" destination="Y14-Ug-bhj" id="dbA-WI-rQl"/>
                         <outlet property="reminderDescriptionTextField" destination="nGy-cH-kBF" id="xr4-xk-vx2"/>
+                        <segue destination="Riz-PM-0F7" kind="unwind" identifier="saveUnwindSegue" unwindAction="save:" id="Bt3-3O-52n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gi4-oa-Wng" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Riz-PM-0F7" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1989.8550724637682" y="103.79464285714285"/>
         </scene>
@@ -180,6 +182,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="FXn-w9-t5i"/>
+        <segue reference="7Jl-bx-pPU"/>
     </inferredMetricsTieBreakers>
 </document>
