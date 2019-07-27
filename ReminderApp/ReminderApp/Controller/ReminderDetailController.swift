@@ -21,14 +21,7 @@ class ReminderDetailViewController: UIViewController {
         super.viewDidLoad()
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveReminder(_:)))
         navigationItem.rightBarButtonItem = saveButton
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        fetchAllReminders()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
+        
         if selectedReminder != nil {
             reminderDescriptionTextField.text = selectedReminder?.value(forKey: "reminderDescription") as? String
             if selectedReminder?.value(forKey: "isEntering") as! Bool == true {
@@ -37,6 +30,11 @@ class ReminderDetailViewController: UIViewController {
                 isEnteringSegementedControl.selectedSegmentIndex = 1
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchAllReminders()
     }
     
     @objc func saveReminder(_ sender: Any) {
