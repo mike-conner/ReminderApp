@@ -11,12 +11,17 @@ import CoreData
 
 class ReminderDetailViewController: UIViewController {
     
-    @IBOutlet weak var label: UILabel!
+    var reminderDetailsTextFieldText: String?                                   // code for testing
     
-    var labelText = String()
+    @IBOutlet weak var reminderDetailsTextField: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
-        label.text = labelText
+        reminderDetailsTextField.text = reminderDetailsTextFieldText            // code for testing
     }
     
 }

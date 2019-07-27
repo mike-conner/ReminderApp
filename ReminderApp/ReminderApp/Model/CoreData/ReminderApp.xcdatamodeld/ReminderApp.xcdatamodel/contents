@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14492.1" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Reminder" representedClassName=".Reminder" syncable="YES">
-        <attribute name="isEntering" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="reminderDescription" attributeType="String" syncable="YES"/>
-        <attribute name="reminderLatitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="reminderLocation" attributeType="String" syncable="YES"/>
-        <attribute name="reminderLongitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isEntering" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="reminderDescription" optional="YES" attributeType="String" defaultValueString="no description" syncable="YES"/>
+        <attribute name="reminderLatitude" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="reminderLocation" optional="YES" attributeType="String" defaultValueString="no location" syncable="YES"/>
+        <attribute name="reminderLongitude" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
         <element name="Reminder" positionX="-63" positionY="-18" width="128" height="120"/>

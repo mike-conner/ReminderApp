@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		130B7D5022EBA81E00A7907D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130B7D4F22EBA81E00A7907D /* MapViewController.swift */; };
+		130B7D5322EBB53600A7907D /* Reminder+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130B7D5122EBB53600A7907D /* Reminder+CoreDataClass.swift */; };
+		130B7D5422EBB53600A7907D /* Reminder+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130B7D5222EBB53600A7907D /* Reminder+CoreDataProperties.swift */; };
+		130B7D5622EBB65300A7907D /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130B7D5522EBB65300A7907D /* CoreDataManager.swift */; };
 		13C021C522E904030094192D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C021C422E904030094192D /* AppDelegate.swift */; };
 		13C021C722E904030094192D /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C021C622E904030094192D /* MasterViewController.swift */; };
 		13C021CA22E904030094192D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13C021C822E904030094192D /* Main.storyboard */; };
@@ -15,13 +19,15 @@
 		13C021D222E904040094192D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13C021D022E904040094192D /* LaunchScreen.storyboard */; };
 		13C021DD22E905D80094192D /* ReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C021DC22E905D80094192D /* ReminderCell.swift */; };
 		13C021DF22E90BA30094192D /* StubData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C021DE22E90BA30094192D /* StubData.swift */; };
-		13C021E222E90E4E0094192D /* Reminder+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C021E022E90E4E0094192D /* Reminder+CoreDataClass.swift */; };
-		13C021E322E90E4E0094192D /* Reminder+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C021E122E90E4E0094192D /* Reminder+CoreDataProperties.swift */; };
 		13C021E622E910510094192D /* ReminderDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C021E522E910510094192D /* ReminderDetailController.swift */; };
 		13C021E922E918990094192D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C021E822E918990094192D /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		130B7D4F22EBA81E00A7907D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		130B7D5122EBB53600A7907D /* Reminder+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reminder+CoreDataClass.swift"; sourceTree = "<group>"; };
+		130B7D5222EBB53600A7907D /* Reminder+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reminder+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		130B7D5522EBB65300A7907D /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		13C021C122E904030094192D /* ReminderApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReminderApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13C021C422E904030094192D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		13C021C622E904030094192D /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -32,8 +38,6 @@
 		13C021D322E904040094192D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13C021DC22E905D80094192D /* ReminderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderCell.swift; sourceTree = "<group>"; };
 		13C021DE22E90BA30094192D /* StubData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubData.swift; sourceTree = "<group>"; };
-		13C021E022E90E4E0094192D /* Reminder+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reminder+CoreDataClass.swift"; sourceTree = "<group>"; };
-		13C021E122E90E4E0094192D /* Reminder+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reminder+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		13C021E522E910510094192D /* ReminderDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderDetailController.swift; sourceTree = "<group>"; };
 		13C021E822E918990094192D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,6 +89,8 @@
 			children = (
 				13C021C622E904030094192D /* MasterViewController.swift */,
 				13C021E522E910510094192D /* ReminderDetailController.swift */,
+				130B7D5522EBB65300A7907D /* CoreDataManager.swift */,
+				130B7D4F22EBA81E00A7907D /* MapViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -110,8 +116,8 @@
 		13C021E422E90E5D0094192D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				13C021E022E90E4E0094192D /* Reminder+CoreDataClass.swift */,
-				13C021E122E90E4E0094192D /* Reminder+CoreDataProperties.swift */,
+				130B7D5122EBB53600A7907D /* Reminder+CoreDataClass.swift */,
+				130B7D5222EBB53600A7907D /* Reminder+CoreDataProperties.swift */,
 				13C021CB22E904030094192D /* ReminderApp.xcdatamodeld */,
 			);
 			path = CoreData;
@@ -199,12 +205,14 @@
 				13C021C722E904030094192D /* MasterViewController.swift in Sources */,
 				13C021E922E918990094192D /* Extensions.swift in Sources */,
 				13C021CD22E904030094192D /* ReminderApp.xcdatamodeld in Sources */,
+				130B7D5322EBB53600A7907D /* Reminder+CoreDataClass.swift in Sources */,
+				130B7D5022EBA81E00A7907D /* MapViewController.swift in Sources */,
 				13C021C522E904030094192D /* AppDelegate.swift in Sources */,
-				13C021E222E90E4E0094192D /* Reminder+CoreDataClass.swift in Sources */,
-				13C021E322E90E4E0094192D /* Reminder+CoreDataProperties.swift in Sources */,
 				13C021DD22E905D80094192D /* ReminderCell.swift in Sources */,
 				13C021E622E910510094192D /* ReminderDetailController.swift in Sources */,
 				13C021DF22E90BA30094192D /* StubData.swift in Sources */,
+				130B7D5422EBB53600A7907D /* Reminder+CoreDataProperties.swift in Sources */,
+				130B7D5622EBB65300A7907D /* CoreDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

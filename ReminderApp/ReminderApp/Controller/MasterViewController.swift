@@ -29,7 +29,7 @@ class MasterViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showReminderSegue", let destination = segue.destination as? ReminderDetailViewController, let index = tableView.indexPathForSelectedRow?.row {
-            destination.labelText = stubData.names[index]
+            destination.reminderDetailsTextFieldText = stubData.names[index]
         }
     }
 
