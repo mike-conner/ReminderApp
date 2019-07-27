@@ -18,7 +18,6 @@
 		13C021CF22E904040094192D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13C021CE22E904040094192D /* Assets.xcassets */; };
 		13C021D222E904040094192D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13C021D022E904040094192D /* LaunchScreen.storyboard */; };
 		13C021DD22E905D80094192D /* ReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C021DC22E905D80094192D /* ReminderCell.swift */; };
-		13C021DF22E90BA30094192D /* StubData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C021DE22E90BA30094192D /* StubData.swift */; };
 		13C021E622E910510094192D /* ReminderDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C021E522E910510094192D /* ReminderDetailController.swift */; };
 		13C021E922E918990094192D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C021E822E918990094192D /* Extensions.swift */; };
 /* End PBXBuildFile section */
@@ -37,7 +36,6 @@
 		13C021D122E904040094192D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		13C021D322E904040094192D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13C021DC22E905D80094192D /* ReminderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderCell.swift; sourceTree = "<group>"; };
-		13C021DE22E90BA30094192D /* StubData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubData.swift; sourceTree = "<group>"; };
 		13C021E522E910510094192D /* ReminderDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderDetailController.swift; sourceTree = "<group>"; };
 		13C021E822E918990094192D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -108,7 +106,6 @@
 			children = (
 				13C021E422E90E5D0094192D /* CoreData */,
 				13C021DC22E905D80094192D /* ReminderCell.swift */,
-				13C021DE22E90BA30094192D /* StubData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -211,7 +208,6 @@
 				130B7D5A22EBD35700A7907D /* Reminder+CoreDataProperties.swift in Sources */,
 				13C021DD22E905D80094192D /* ReminderCell.swift in Sources */,
 				13C021E622E910510094192D /* ReminderDetailController.swift in Sources */,
-				13C021DF22E90BA30094192D /* StubData.swift in Sources */,
 				130B7D5622EBB65300A7907D /* CoreDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -16,12 +16,12 @@ extension MasterViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stubData.names.count
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath)
-        cell.textLabel?.text = stubData.names[indexPath.row]
+        cell.textLabel?.text = "temporary value"
         return cell
     }
     
@@ -31,7 +31,7 @@ extension MasterViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete {
-            stubData.names.remove(at: indexPath.row)
+//            stubData.names.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
     }

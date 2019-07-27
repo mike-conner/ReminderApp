@@ -75,7 +75,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="umc-IM-1nm" userLabel="containerView">
-                                <rect key="frame" x="24" y="265" width="366" height="597"/>
+                                <rect key="frame" x="24" y="265" width="366" height="548"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="8"/>
@@ -85,7 +85,7 @@
                                     <segue destination="cl8-5t-L1c" kind="embed" id="Uwk-dT-Tbd"/>
                                 </connections>
                             </containerView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nGy-cH-kBF" userLabel="reminderDetailsTextField">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nGy-cH-kBF" userLabel="reminderDescriptionTextField">
                                 <rect key="frame" x="24" y="157" width="366" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="yVv-fb-wRL"/>
@@ -123,8 +123,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PYV-GV-F6a"/>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="reminderDetailsTextField" destination="nGy-cH-kBF" id="4UZ-hh-Sk4"/>
+                        <outlet property="isEnteringSegementedControl" destination="Y14-Ug-bhj" id="dbA-WI-rQl"/>
+                        <outlet property="reminderDescriptionTextField" destination="nGy-cH-kBF" id="xr4-xk-vx2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gi4-oa-Wng" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -136,11 +139,11 @@
             <objects>
                 <viewController id="cl8-5t-L1c" customClass="MapViewController" customModule="ReminderApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ced-Hd-V2Q">
-                        <rect key="frame" x="0.0" y="0.0" width="366" height="597"/>
+                        <rect key="frame" x="0.0" y="0.0" width="366" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsCompass="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weY-qO-w7w">
-                                <rect key="frame" x="0.0" y="0.0" width="366" height="597"/>
+                                <rect key="frame" x="0.0" y="0.0" width="366" height="548"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -10,8 +10,6 @@ import UIKit
 
 class MasterViewController: UITableViewController {
     
-    var stubData = StubData()       // Code for testing only. Remove after Core Data is set up.
-
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "reminderCell")
@@ -29,7 +27,7 @@ class MasterViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showReminderSegue", let destination = segue.destination as? ReminderDetailViewController, let index = tableView.indexPathForSelectedRow?.row {
-            destination.reminderDetailsTextFieldText = stubData.names[index]
+            
         }
     }
 
