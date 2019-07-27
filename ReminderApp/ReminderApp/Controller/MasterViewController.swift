@@ -10,7 +10,7 @@ import UIKit
 
 class MasterViewController: UITableViewController {
     
-    var stubData = StubData()
+    var stubData = StubData()       // Code for testing only. Remove after Core Data is set up.
 
     override func viewDidLoad() {
         super.viewDidLoad()
