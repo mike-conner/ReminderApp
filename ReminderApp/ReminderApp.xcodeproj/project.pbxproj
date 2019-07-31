@@ -87,9 +87,9 @@
 			children = (
 				13C021C622E904030094192D /* MasterViewController.swift */,
 				13C021E522E910510094192D /* ReminderDetailController.swift */,
-				130B7D5522EBB65300A7907D /* CoreDataManager.swift */,
 				130B7D4F22EBA81E00A7907D /* MapViewController.swift */,
 				13F0DC4B22EFC0700067D852 /* LocationSearchTable.swift */,
+				130B7D5522EBB65300A7907D /* CoreDataManager.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

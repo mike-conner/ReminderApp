@@ -14,11 +14,14 @@ class ReminderDetailViewController: UIViewController {
     var reminders: [NSManagedObject] = []
     var selectedReminder: NSManagedObject?
     
+    var mapViewController: MapViewController?
+    
     @IBOutlet weak var reminderDescriptionTextField: UITextField!
     @IBOutlet weak var isEnteringSegementedControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+                
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveReminder(_:)))
         navigationItem.rightBarButtonItem = saveButton
         
@@ -37,8 +40,17 @@ class ReminderDetailViewController: UIViewController {
         fetchAllReminders()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "MapSegue" {
+            let destinationViewController = segue.destination as! UINavigationController
+            let targetViewController = destinationViewController.topViewController as! MapViewController
+            targetViewController.mapToReminder = self
+        }
+    }
+    
     @objc func saveReminder(_ sender: Any) {
         var isEnteringStatus: Bool = true
+        
         if let reminderDescriptionText = reminderDescriptionTextField.text {
             if isEnteringSegementedControl.selectedSegmentIndex == 0 {
                 isEnteringStatus = true
@@ -75,3 +87,8 @@ class ReminderDetailViewController: UIViewController {
     
 }
 
+extension ReminderDetailViewController: MapToReminderProtocol {
+    func sendDataToReminderVC(data: String) {
+        print(data)
+    }
+}

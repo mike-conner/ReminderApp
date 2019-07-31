@@ -14,11 +14,17 @@ protocol HandleMapSearch {
     func dropPinZoomIn(placemark: MKPlacemark)
 }
 
+protocol MapToReminderProtocol {
+    func sendDataToReminderVC(data: String)
+}
+
 class MapViewController: UIViewController {
     
     let locationManager = CLLocationManager()
     var resultSearchController = UISearchController()
     var selectedPin: MKPlacemark? = nil
+    
+    var mapToReminder: MapToReminderProtocol?
     
     var startingLocation: String = ""
     
@@ -55,7 +61,6 @@ class MapViewController: UIViewController {
         
         locationSearchTable.handleMapSearchDelegate = self as HandleMapSearch
     }
-    
 }
 
 extension MapViewController : CLLocationManagerDelegate {
@@ -89,6 +94,10 @@ extension MapViewController: HandleMapSearch {
         
         annotation.coordinate = placemark.coordinate
         annotation.title = placemark.name
+        
+        if let name = annotation.title {
+            mapToReminder?.sendDataToReminderVC(data: name)
+        }
         
         if let city = placemark.locality, let state = placemark.administrativeArea, let name = placemark.name {
             annotation.subtitle = "\(city) \(state)"
