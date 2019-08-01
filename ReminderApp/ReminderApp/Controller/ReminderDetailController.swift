@@ -9,10 +9,19 @@
 import UIKit
 import CoreData
 
+//protocol ReminderToMapProtocol {
+//    func sendDataToMapVC(latitude: Double, longitude: Double)
+//}
+
+
 class ReminderDetailViewController: UIViewController {
     
     var reminders: [NSManagedObject] = []
     var selectedReminder: NSManagedObject?
+    
+    var locationName: String?
+    var locationLatitude: Double?
+    var locationLongitude: Double?
     
     var mapViewController: MapViewController?
     
@@ -26,6 +35,9 @@ class ReminderDetailViewController: UIViewController {
         navigationItem.rightBarButtonItem = saveButton
         
         if selectedReminder != nil {
+            locationLatitude = selectedReminder?.value(forKey: "reminderLatitude") as? Double
+            locationLongitude = selectedReminder?.value(forKey: "reminderLongitude") as? Double
+
             reminderDescriptionTextField.text = selectedReminder?.value(forKey: "reminderDescription") as? String
             if selectedReminder?.value(forKey: "isEntering") as! Bool == true {
                 isEnteringSegementedControl.selectedSegmentIndex = 0
@@ -45,22 +57,32 @@ class ReminderDetailViewController: UIViewController {
             let destinationViewController = segue.destination as! UINavigationController
             let targetViewController = destinationViewController.topViewController as! MapViewController
             targetViewController.mapToReminder = self
+            if selectedReminder != nil {
+                locationLatitude = selectedReminder?.value(forKey: "reminderLatitude") as? Double
+                locationLongitude = selectedReminder?.value(forKey: "reminderLongitude") as? Double
+                locationName = selectedReminder?.value(forKey: "reminderLocation") as? String
+            }
+            if let lat = locationLatitude, let lon = locationLongitude, let name = locationName {
+                targetViewController.locationLatitude = lat
+                targetViewController.locationLongitude = lon
+                targetViewController.locationName = name
+            }
         }
     }
     
     @objc func saveReminder(_ sender: Any) {
         var isEnteringStatus: Bool = true
         
-        if let reminderDescriptionText = reminderDescriptionTextField.text {
+        if let reminderDescriptionText = reminderDescriptionTextField.text, let name = locationName, let lat = locationLatitude, let lon = locationLongitude {
             if isEnteringSegementedControl.selectedSegmentIndex == 0 {
                 isEnteringStatus = true
             } else {
                 isEnteringStatus = false
             }
             if selectedReminder != nil {
-                updateReminder(reminderDescription: reminderDescriptionText, isEntering: isEnteringStatus, reminder: selectedReminder as! Reminder)
+                updateReminder(reminderDescription: reminderDescriptionText, reminderLocation: name, isEntering: isEnteringStatus, reminderLatitude: lat, reminderLongitude: lon, reminder: selectedReminder as! Reminder)
             } else {
-                saveReminder(reminderDescription: reminderDescriptionText, isEntering: isEnteringStatus)
+                saveReminder(reminderDescription: reminderDescriptionText, reminderLocation: name, isEntering: isEnteringStatus, reminderLatitude: lat, reminderLongitude: lon)
             }
         }
     }
@@ -73,22 +95,24 @@ class ReminderDetailViewController: UIViewController {
         }
     }
     
-    func saveReminder(reminderDescription: String, isEntering: Bool) {
-        if let reminder = CoreDataManager.sharedManager.insertNewReminder(reminderDescription: reminderDescription, isEntering: isEntering) {
+    func saveReminder(reminderDescription: String, reminderLocation: String, isEntering: Bool, reminderLatitude: Double, reminderLongitude: Double) {
+        if let reminder = CoreDataManager.sharedManager.insertNewReminder(reminderDescription: reminderDescription, reminderLocation: reminderLocation, isEntering: isEntering, reminderLatitude: reminderLatitude, reminderLongitude: reminderLongitude) {
             reminders.append(reminder)
         }
         performSegue(withIdentifier: "saveUnwindSegue", sender: self)
     }
     
-    func updateReminder(reminderDescription: String, isEntering: Bool, reminder: Reminder) {
-        CoreDataManager.sharedManager.updateReminder(reminderDescription: reminderDescription, isEntering: isEntering, reminder: reminder)
+    func updateReminder(reminderDescription: String, reminderLocation: String, isEntering: Bool, reminderLatitude: Double, reminderLongitude: Double, reminder: Reminder) {
+        CoreDataManager.sharedManager.updateReminder(reminderDescription: reminderDescription, reminderLocation: reminderLocation, isEntering: isEntering, reminderLatitude: reminderLatitude, reminderLongitude: reminderLongitude, reminder: reminder)
         performSegue(withIdentifier: "saveUnwindSegue", sender: self)
     }
     
 }
 
 extension ReminderDetailViewController: MapToReminderProtocol {
-    func sendDataToReminderVC(data: String) {
-        print(data)
+    func sendDataToReminderVC(name: String, latitude: Double, longitude: Double) {
+        locationName = name
+        locationLatitude = latitude
+        locationLongitude = longitude
     }
 }

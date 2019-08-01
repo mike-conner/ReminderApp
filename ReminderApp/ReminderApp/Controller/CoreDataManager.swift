@@ -57,26 +57,26 @@ class CoreDataManager {
         }
     }
     
-    // Add a new reminder - testing function only!
-    func insertNewReminder (reminderDescription: String, isEntering: Bool) -> Reminder? {
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "Reminder", in: managedContext)!
-        let reminder = NSManagedObject(entity: entity, insertInto: managedContext)
-        
-        reminder.setValue(reminderDescription, forKey: "reminderDescription")
-        reminder.setValue("No Location Entered", forKey: "reminderLocation")
-        reminder.setValue(isEntering, forKey: "isEntering")
-        reminder.setValue(0.0, forKey: "reminderLatitude")
-        reminder.setValue(0.0, forKey: "reminderLongitude")
-        
-        do {
-            try managedContext.save()
-            return reminder as? Reminder
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-            return nil
-        }
-    }
+//    // Add a new reminder - testing function only!
+//    func insertNewReminder (reminderDescription: String, isEntering: Bool) -> Reminder? {
+//        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
+//        let entity = NSEntityDescription.entity(forEntityName: "Reminder", in: managedContext)!
+//        let reminder = NSManagedObject(entity: entity, insertInto: managedContext)
+//
+//        reminder.setValue(reminderDescription, forKey: "reminderDescription")
+//        reminder.setValue("No Location Entered", forKey: "reminderLocation")
+//        reminder.setValue(isEntering, forKey: "isEntering")
+//        reminder.setValue(0.0, forKey: "reminderLatitude")
+//        reminder.setValue(0.0, forKey: "reminderLongitude")
+//
+//        do {
+//            try managedContext.save()
+//            return reminder as? Reminder
+//        } catch let error as NSError {
+//            print("Could not save. \(error), \(error.userInfo)")
+//            return nil
+//        }
+//    }
     
     // Update a reminder
     func updateReminder (reminderDescription: String, reminderLocation: String, isEntering: Bool, reminderLatitude: Double, reminderLongitude: Double, reminder: Reminder) {
@@ -87,24 +87,6 @@ class CoreDataManager {
         reminder.setValue(isEntering, forKey: "isEntering")
         reminder.setValue(reminderLatitude, forKey: "reminderLatitude")
         reminder.setValue(reminderLongitude, forKey: "reminderLongitude")
-        
-        do {
-            try context.save()
-            print("updated")
-        } catch let error as NSError {
-            print("Could not update \(error), \(error.userInfo)")
-        }
-    }
-    
-    // Update a reminder - testing function only!
-    func updateReminder (reminderDescription: String, isEntering: Bool, reminder: Reminder) {
-        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
-        
-        reminder.setValue(reminderDescription, forKey: "reminderDescription")
-        reminder.setValue("No Location Entered", forKey: "reminderLocation")
-        reminder.setValue(isEntering, forKey: "isEntering")
-        reminder.setValue(0.0, forKey: "reminderLatitude")
-        reminder.setValue(0.0, forKey: "reminderLongitude")
         
         do {
             try context.save()

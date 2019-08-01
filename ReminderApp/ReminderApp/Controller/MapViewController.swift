@@ -8,6 +8,8 @@
 
 import UIKit
 import MapKit
+import Intents
+import Contacts
 import CoreLocation
 
 protocol HandleMapSearch {
@@ -15,7 +17,7 @@ protocol HandleMapSearch {
 }
 
 protocol MapToReminderProtocol {
-    func sendDataToReminderVC(data: String)
+    func sendDataToReminderVC(name: String, latitude: Double, longitude: Double)
 }
 
 class MapViewController: UIViewController {
@@ -27,6 +29,9 @@ class MapViewController: UIViewController {
     var mapToReminder: MapToReminderProtocol?
     
     var startingLocation: String = ""
+    var locationLatitude: Double?
+    var locationLongitude: Double?
+    var locationName: String?
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -37,7 +42,15 @@ class MapViewController: UIViewController {
         locationManager.delegate = self as CLLocationManagerDelegate
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
-        locationManager.requestLocation()
+        
+        if let lat = locationLatitude, let lon = locationLongitude, let name = locationName {
+            let location = CLLocation(latitude: lat, longitude: lon)
+            let locationPlacemark = CLPlacemark(location: location, name: name, postalAddress: nil)
+            let pin = MKPlacemark(placemark: locationPlacemark)
+            dropPinZoomIn(placemark: pin)
+        } else {
+            locationManager.requestLocation()
+        }
         
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
@@ -76,10 +89,14 @@ extension MapViewController : CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-            let region = MKCoordinateRegion(center: location.coordinate, span: span)
-            mapView.setRegion(region, animated: true)
+        if let _ = locationLatitude, let _ = locationLongitude, let _ = locationName {
+            return
+        } else {
+            if let location = locations.first {
+                let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+                let region = MKCoordinateRegion(center: location.coordinate, span: span)
+                mapView.setRegion(region, animated: true)
+            }
         }
     }
     
@@ -95,14 +112,12 @@ extension MapViewController: HandleMapSearch {
         annotation.coordinate = placemark.coordinate
         annotation.title = placemark.name
         
-        if let name = annotation.title {
-            mapToReminder?.sendDataToReminderVC(data: name)
-        }
-        
         if let city = placemark.locality, let state = placemark.administrativeArea, let name = placemark.name {
             annotation.subtitle = "\(city) \(state)"
             startingLocation = "\(name) \(city), \(state)"
         }
+        
+        mapToReminder?.sendDataToReminderVC(name: startingLocation, latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
         
         mapView.addAnnotation(annotation)
         
@@ -115,7 +130,6 @@ extension MapViewController: HandleMapSearch {
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
         if annotation is MKUserLocation {
-            //return nil so map view draws "blue dot" for standard user location
             return nil
         }
         let reuseId = "pin"
@@ -126,5 +140,3 @@ extension MapViewController: MKMapViewDelegate {
         return pinView
     }
 }
-
-
