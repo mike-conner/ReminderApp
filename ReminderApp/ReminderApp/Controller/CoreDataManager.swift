@@ -69,7 +69,6 @@ class CoreDataManager {
         
         do {
             try context.save()
-            print("updated")
         } catch let error as NSError {
             print("Could not update \(error), \(error.userInfo)")
         }
