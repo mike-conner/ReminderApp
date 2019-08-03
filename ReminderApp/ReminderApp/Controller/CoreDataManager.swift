@@ -11,7 +11,7 @@ import CoreData
 
 class CoreDataManager {
     
-    static let sharedManager = CoreDataManager()
+    static let sharedCoreDataManager = CoreDataManager()
     private init() {}
     
     lazy var persistentContainer: NSPersistentContainer = {
@@ -25,7 +25,7 @@ class CoreDataManager {
     }()
     
     func saveContext () {
-        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
+        let context = CoreDataManager.sharedCoreDataManager.persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
@@ -38,7 +38,7 @@ class CoreDataManager {
     
     // Add a new reminder
     func insertNewReminder (reminderDescription: String, reminderLocation: String, isEntering: Bool, reminderLatitude: Double, reminderLongitude: Double) -> Reminder? {
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
+        let managedContext = CoreDataManager.sharedCoreDataManager.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "Reminder", in: managedContext)!
         let reminder = NSManagedObject(entity: entity, insertInto: managedContext)
         
@@ -59,7 +59,7 @@ class CoreDataManager {
     
     // Update a reminder
     func updateReminder (reminderDescription: String, reminderLocation: String, isEntering: Bool, reminderLatitude: Double, reminderLongitude: Double, reminder: Reminder) {
-        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
+        let context = CoreDataManager.sharedCoreDataManager.persistentContainer.viewContext
         
         reminder.setValue(reminderDescription, forKey: "reminderDescription")
         reminder.setValue(reminderLocation, forKey: "reminderLocation")
@@ -76,7 +76,7 @@ class CoreDataManager {
     
     // Delete a reminder
     func deleteReminder (reminder: Reminder) {
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
+        let managedContext = CoreDataManager.sharedCoreDataManager.persistentContainer.viewContext
         
         managedContext.delete(reminder)
         
@@ -89,7 +89,7 @@ class CoreDataManager {
     
     // Fetch all reminders stored in CoreData
     func fetchAllReminders() -> [Reminder]? {
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
+        let managedContext = CoreDataManager.sharedCoreDataManager.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Reminder")
         
         do {
@@ -101,56 +101,6 @@ class CoreDataManager {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -22,6 +22,7 @@ class MasterViewController: UITableViewController {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
         navigationItem.rightBarButtonItem = addButton
         
+        CoreLocationManager.sharedLocationManager.locationManager.startUpdatingLocation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,7 +52,7 @@ class MasterViewController: UITableViewController {
     
     func fetchAllReminders() {
         // if fetchAllReminders is successful, assign the returned reminders to the collection array 'reminders'
-        if let fetchedReminders = CoreDataManager.sharedManager.fetchAllReminders() {
+        if let fetchedReminders = CoreDataManager.sharedCoreDataManager.fetchAllReminders() {
             reminders = fetchedReminders
         }
     }
@@ -83,7 +84,7 @@ extension MasterViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         // needed to be able to delete cells/rows in the table view
         if editingStyle == UITableViewCell.EditingStyle.delete {
-            CoreDataManager.sharedManager.deleteReminder(reminder: reminders[indexPath.row] as! Reminder) // deletes record from CoreData
+            CoreDataManager.sharedCoreDataManager.deleteReminder(reminder: reminders[indexPath.row] as! Reminder) // deletes record from CoreData
             reminders.remove(at: indexPath.row) // removes reminder from local collection of reminders
             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic) // deletes the row in the table view
         }

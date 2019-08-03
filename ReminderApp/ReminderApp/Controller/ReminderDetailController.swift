@@ -80,8 +80,11 @@ class ReminderDetailViewController: UIViewController {
                     isEnteringStatus = false
                 }
                 if selectedReminder != nil {
+                    // logic issue: need to verify lat and long have changed before doing the below code
+                    CoreLocationManager.sharedLocationManager.createGeoFence(lat: lat, lon: lon, identifier: "\(reminderDescriptionText)", onEntry: isEnteringStatus)
                     updateReminder(reminderDescription: reminderDescriptionText, reminderLocation: name, isEntering: isEnteringStatus, reminderLatitude: lat, reminderLongitude: lon, reminder: selectedReminder as! Reminder)
                 } else {
+                    CoreLocationManager.sharedLocationManager.createGeoFence(lat: lat, lon: lon, identifier: "\(reminderDescriptionText)", onEntry: isEnteringStatus)
                     saveReminder(reminderDescription: reminderDescriptionText, reminderLocation: name, isEntering: isEnteringStatus, reminderLatitude: lat, reminderLongitude: lon)
                 }
             }
@@ -90,20 +93,20 @@ class ReminderDetailViewController: UIViewController {
     
     // MARK: - CoreData Functions
     func fetchAllReminders() {
-        if let fetchedReminders = CoreDataManager.sharedManager.fetchAllReminders() {
+        if let fetchedReminders = CoreDataManager.sharedCoreDataManager.fetchAllReminders() {
             reminders = fetchedReminders
         }
     }
     
     func saveReminder(reminderDescription: String, reminderLocation: String, isEntering: Bool, reminderLatitude: Double, reminderLongitude: Double) {
-        if let reminder = CoreDataManager.sharedManager.insertNewReminder(reminderDescription: reminderDescription, reminderLocation: reminderLocation, isEntering: isEntering, reminderLatitude: reminderLatitude, reminderLongitude: reminderLongitude) {
+        if let reminder = CoreDataManager.sharedCoreDataManager.insertNewReminder(reminderDescription: reminderDescription, reminderLocation: reminderLocation, isEntering: isEntering, reminderLatitude: reminderLatitude, reminderLongitude: reminderLongitude) {
             reminders.append(reminder)
         }
         performSegue(withIdentifier: "saveUnwindSegue", sender: self) // unwind to masterVC after save reminder has been called
     }
     
     func updateReminder(reminderDescription: String, reminderLocation: String, isEntering: Bool, reminderLatitude: Double, reminderLongitude: Double, reminder: Reminder) {
-        CoreDataManager.sharedManager.updateReminder(reminderDescription: reminderDescription, reminderLocation: reminderLocation, isEntering: isEntering, reminderLatitude: reminderLatitude, reminderLongitude: reminderLongitude, reminder: reminder)
+        CoreDataManager.sharedCoreDataManager.updateReminder(reminderDescription: reminderDescription, reminderLocation: reminderLocation, isEntering: isEntering, reminderLatitude: reminderLatitude, reminderLongitude: reminderLongitude, reminder: reminder)
         performSegue(withIdentifier: "saveUnwindSegue", sender: self) // unwind to masterVC after update Reminder has been called
     }
     

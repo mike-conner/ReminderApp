@@ -22,7 +22,6 @@ protocol MapToReminderProtocol {
 
 class MapViewController: UIViewController {
     
-    let locationManager = CLLocationManager()
     var resultSearchController = UISearchController()
     var selectedPin: MKPlacemark? = nil
     
@@ -32,6 +31,7 @@ class MapViewController: UIViewController {
     var locationLatitude: Double?
     var locationLongitude: Double?
     var locationName: String?
+    var circle: MKCircle?
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -39,17 +39,15 @@ class MapViewController: UIViewController {
         
         super.viewDidLoad()
         
-        locationManager.delegate = self as CLLocationManagerDelegate
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        
+        mapView.delegate = self
+ 
         if let lat = locationLatitude, let lon = locationLongitude, let name = locationName {
             let location = CLLocation(latitude: lat, longitude: lon)
             let locationPlacemark = CLPlacemark(location: location, name: name, postalAddress: nil)
             let pin = MKPlacemark(placemark: locationPlacemark)
             dropPinZoomIn(placemark: pin)
         } else {
-            locationManager.requestLocation()
+            loadInitialMapViewBasedOnLocation(CoreLocationManager.sharedLocationManager.locationManager, location: CoreLocationManager.sharedLocationManager.lastLocation)
         }
         
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
@@ -74,30 +72,11 @@ class MapViewController: UIViewController {
         
         locationSearchTable.handleMapSearchDelegate = self as HandleMapSearch
     }
-}
-
-extension MapViewController : CLLocationManagerDelegate {
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("error:: \(error.localizedDescription)")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            locationManager.requestLocation()
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let _ = locationLatitude, let _ = locationLongitude, let _ = locationName {
-            return
-        } else {
-            if let location = locations.first {
-                let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-                let region = MKCoordinateRegion(center: location.coordinate, span: span)
-                mapView.setRegion(region, animated: true)
-            }
-        }
+    func loadInitialMapViewBasedOnLocation(_ manager: CLLocationManager, location: CLLocation) {
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let region = MKCoordinateRegion(center: location.coordinate, span: span)
+        mapView.setRegion(region, animated: true)
     }
     
 }
@@ -106,12 +85,12 @@ extension MapViewController: HandleMapSearch {
     func dropPinZoomIn(placemark: MKPlacemark){
         selectedPin = placemark
         mapView.removeAnnotations(mapView.annotations)
-        
+                
         let annotation = MKPointAnnotation()
         
         annotation.coordinate = placemark.coordinate
         annotation.title = placemark.name
-        
+    
         if let city = placemark.locality, let state = placemark.administrativeArea, let name = placemark.name {
             annotation.subtitle = "\(city) \(state)"
             startingLocation = "\(name) \(city), \(state)"
@@ -120,10 +99,20 @@ extension MapViewController: HandleMapSearch {
         mapToReminder?.sendDataToReminderVC(name: startingLocation, latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
         
         mapView.addAnnotation(annotation)
+
         
-        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         mapView.setRegion(region, animated: true)
+        
+        if let lat = locationLatitude, let lon = locationLongitude {
+            let center = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+            circle = MKCircle(center: center, radius: CoreLocationManager.sharedLocationManager.geoFenceRadius)
+            if let myCircle = circle {
+                mapView.addOverlay(myCircle as MKOverlay)
+            }
+        }
+        
     }
 }
 
@@ -135,8 +124,17 @@ extension MapViewController: MKMapViewDelegate {
         let reuseId = "pin"
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
         pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-        pinView?.pinTintColor = UIColor.orange
+        pinView?.pinTintColor = UIColor.red
         pinView?.canShowCallout = true
+        pinView?.isSelected = true
         return pinView
     }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let circleRenderer = MKCircleRenderer(overlay: overlay)
+        circleRenderer.strokeColor = UIColor.red
+        circleRenderer.lineWidth = 1.0
+        return circleRenderer
+    }
+    
 }
