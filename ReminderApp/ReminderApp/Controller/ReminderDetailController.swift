@@ -14,6 +14,8 @@ class ReminderDetailViewController: UIViewController {
     var reminders: [NSManagedObject] = []
     var selectedReminder: NSManagedObject? // when a row is selected on the MasterVC, the Reminder object is passed to the ReminderDetailVC and stored in this variable
     
+    var appDelegate = UIApplication.shared.delegate as? AppDelegate
+    
     // the below variables are used to store the information passed back from the MapViewVC
     var locationName: String?
     var locationLatitude: Double?

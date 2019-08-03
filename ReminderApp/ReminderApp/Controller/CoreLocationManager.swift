@@ -15,6 +15,7 @@ class CoreLocationManager: NSObject {
     
     let locationManager = CLLocationManager()
     var lastLocation = CLLocation()
+    var appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     static let sharedLocationManager = CoreLocationManager()
     

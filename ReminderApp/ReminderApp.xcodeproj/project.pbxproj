@@ -72,14 +72,14 @@
 		13C021C322E904030094192D /* ReminderApp */ = {
 			isa = PBXGroup;
 			children = (
+				13C021C422E904030094192D /* AppDelegate.swift */,
+				13C021D322E904040094192D /* Info.plist */,
 				13C021DB22E9049F0094192D /* Model */,
 				13C021DA22E9049D0094192D /* View */,
 				13C021D922E904970094192D /* Controller */,
 				13C021E722E9187D0094192D /* Extensions */,
-				13C021C422E904030094192D /* AppDelegate.swift */,
 				13C021CE22E904040094192D /* Assets.xcassets */,
 				13C021D022E904040094192D /* LaunchScreen.storyboard */,
-				13C021D322E904040094192D /* Info.plist */,
 			);
 			path = ReminderApp;
 			sourceTree = "<group>";

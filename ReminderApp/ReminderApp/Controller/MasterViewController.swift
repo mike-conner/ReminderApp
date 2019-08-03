@@ -13,6 +13,8 @@ class MasterViewController: UITableViewController {
     
     var reminders: [NSManagedObject] = []     // Create an empty array for the storage of reminders after they are fetched from CoreData
     
+    var appDelegate = UIApplication.shared.delegate as? AppDelegate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "reminderCell")
@@ -92,5 +94,15 @@ extension MasterViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "showReminderSegue", sender: self) // calls for 'showReminderSegue' to be performed if a row is selected
+    }
+}
+
+// MARK: - Helper Extension
+extension MasterViewController {
+    func showAlert(withTitle title: String?, message: String?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
 }
