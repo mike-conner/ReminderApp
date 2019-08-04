@@ -33,6 +33,11 @@ class CoreLocationManager: NSObject {
                 print("notification permission granted!")
             }
         }
+        print(locationManager.monitoredRegions.count)
+        for fence in locationManager.monitoredRegions {
+            print(fence.description)
+        }
+        
     }    
     
     func createGeoFence(lat: Double, lon: Double, identifier: String, onEntry: Bool) {
@@ -71,7 +76,6 @@ class CoreLocationManager: NSObject {
         center.add(request) { (error) in
             print("Error adding request")
         }
-        removeGeoFence(for: region)
     }
 }
 
@@ -93,13 +97,19 @@ extension CoreLocationManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         handleEvent(for: region)
+        removeGeoFence(for: region)
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         handleEvent(for: region)
+        removeGeoFence(for: region)
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler(.alert)
+    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
+        print(region.description)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+        print(error.localizedDescription)
     }
 }
