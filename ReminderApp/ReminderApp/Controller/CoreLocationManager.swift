@@ -52,8 +52,7 @@ class CoreLocationManager: NSObject {
                 geoFenceRegion.notifyOnExit = true
             }
             locationManager.startMonitoring(for: geoFenceRegion)
-            print(locationManager.monitoredRegions.count)
-            print(geoFenceRegion.description)
+            addTrigger(for: geoFenceRegion)
         } else {
             print("too many geofences created!")
         }
@@ -67,16 +66,25 @@ class CoreLocationManager: NSObject {
     }
     
     func handleEvent(for region: CLRegion) {
+        
+    }
+    
+    func addTrigger(for region: CLRegion) {
         let content = UNMutableNotificationContent()
         content.title = "Reminder:"
         content.body = locationManager.monitoredRegions.description
         let trigger = UNLocationNotificationTrigger(region: region, repeats: false)
+        addRequestToNotificationCenter(for: trigger, with: content)
+    }
+
+    func addRequestToNotificationCenter(for trigger: UNLocationNotificationTrigger, with content: UNMutableNotificationContent) {
         let uuidString = UUID().uuidString
         let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
         center.add(request) { (error) in
-            print("Error adding request")
+            print("Error adding request: \(String(describing: error))")
         }
     }
+    
 }
 
 extension CoreLocationManager: CLLocationManagerDelegate {
@@ -96,13 +104,15 @@ extension CoreLocationManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        handleEvent(for: region)
-        removeGeoFence(for: region)
+        print("did enter region")
+//        handleEvent(for: region)
+//        removeGeoFence(for: region)
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        handleEvent(for: region)
-        removeGeoFence(for: region)
+        print("did exit region")
+//        handleEvent(for: region)
+//        removeGeoFence(for: region)
     }
     
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {

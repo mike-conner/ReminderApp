@@ -104,6 +104,7 @@ class ReminderDetailViewController: UIViewController {
         if let reminder = CoreDataManager.sharedCoreDataManager.insertNewReminder(reminderDescription: reminderDescription, reminderLocation: reminderLocation, isEntering: isEntering, reminderLatitude: reminderLatitude, reminderLongitude: reminderLongitude) {
             reminders.append(reminder)
         }
+        
         performSegue(withIdentifier: "saveUnwindSegue", sender: self) // unwind to masterVC after save reminder has been called
     }
     
