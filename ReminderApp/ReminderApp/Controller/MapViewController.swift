@@ -93,7 +93,7 @@ extension MapViewController: HandleMapSearch {
     
         if let city = placemark.locality, let state = placemark.administrativeArea, let name = placemark.name {
             annotation.subtitle = "\(city) \(state)"
-            startingLocation = "\(name) \(city), \(state)"
+            startingLocation = "\(name)"
         }
         
         mapToReminder?.sendDataToReminderVC(name: startingLocation, latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
