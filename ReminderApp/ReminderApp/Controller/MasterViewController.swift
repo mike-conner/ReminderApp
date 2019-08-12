@@ -32,9 +32,6 @@ class MasterViewController: UITableViewController {
         super.viewWillAppear(animated)
         fetchAllReminders() // fetch all the reminders everytime the masterVC is reloaded
         tableView.reloadData() // reload table with new or edited reminders
-//        if (appDelegate?.userResponse ?? false) {
-//            showAlert(withTitle: "Attention:", message: "Once a notification has been triggered, you must delete the reminder or select and resave it for the reminder to be activated again.")
-//        }
     }
     
     @objc func insertNewObject(_ sender: Any) {
@@ -90,6 +87,7 @@ extension MasterViewController {
         // needed to be able to delete cells/rows in the table view
         if editingStyle == UITableViewCell.EditingStyle.delete {
             
+            // stops monitoring for the region once the reminder is deleted from the MasterVC
             for region in CoreLocationManager.sharedLocationManager.locationManager.monitoredRegions {
                 if region.identifier == reminders[indexPath.row].value(forKey: "reminderDescription") as? String {
                     CoreLocationManager.sharedLocationManager.locationManager.stopMonitoring(for: region)
@@ -104,15 +102,5 @@ extension MasterViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "showReminderSegue", sender: self) // calls for 'showReminderSegue' to be performed if a row is selected
-    }
-}
-
-// MARK: - Helper Extension
-extension MasterViewController {
-    func showAlert(withTitle title: String?, message: String?) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
     }
 }

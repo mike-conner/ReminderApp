@@ -82,7 +82,6 @@ class ReminderDetailViewController: UIViewController {
                     isEnteringStatus = false
                 }
                 if selectedReminder != nil {
-                    // logic issue: need to verify lat and long have changed before doing the below code
                     CoreLocationManager.sharedLocationManager.createGeoFence(lat: lat, lon: lon, identifier: "\(reminderDescriptionText)", onEntry: isEnteringStatus)
                     updateReminder(reminderDescription: reminderDescriptionText, reminderLocation: name, isEntering: isEnteringStatus, reminderLatitude: lat, reminderLongitude: lon, reminder: selectedReminder as! Reminder)
                 } else {

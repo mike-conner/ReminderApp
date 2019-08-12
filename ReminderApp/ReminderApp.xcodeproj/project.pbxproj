@@ -90,11 +90,11 @@
 			isa = PBXGroup;
 			children = (
 				13C021C622E904030094192D /* MasterViewController.swift */,
-				134A61F222F5C2570057EB0B /* CoreLocationManager.swift */,
 				13C021E522E910510094192D /* ReminderDetailController.swift */,
 				130B7D4F22EBA81E00A7907D /* MapViewController.swift */,
 				13F0DC4B22EFC0700067D852 /* LocationSearchTable.swift */,
 				130B7D5522EBB65300A7907D /* CoreDataManager.swift */,
+				134A61F222F5C2570057EB0B /* CoreLocationManager.swift */,
 				137C207F22F772C600E694FC /* home.gpx */,
 				1302EC302301A5B900E5D9FA /* kroger.gpx */,
 			);
@@ -378,7 +378,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mikeconner.ReminderApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -397,7 +397,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mikeconner.ReminderApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
