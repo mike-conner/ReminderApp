@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import CoreLocation
 
 class MasterViewController: UITableViewController {
     
@@ -31,6 +32,9 @@ class MasterViewController: UITableViewController {
         super.viewWillAppear(animated)
         fetchAllReminders() // fetch all the reminders everytime the masterVC is reloaded
         tableView.reloadData() // reload table with new or edited reminders
+//        if (appDelegate?.userResponse ?? false) {
+//            showAlert(withTitle: "Attention:", message: "Once a notification has been triggered, you must delete the reminder or select and resave it for the reminder to be activated again.")
+//        }
     }
     
     @objc func insertNewObject(_ sender: Any) {
@@ -44,7 +48,6 @@ class MasterViewController: UITableViewController {
             let selectedItem: NSManagedObject = reminders[index] as NSManagedObject
             destination.selectedReminder = selectedItem
         }
-        
     }
     
     @IBAction func save(_ unwindSegue: UIStoryboardSegue) {
@@ -86,6 +89,13 @@ extension MasterViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         // needed to be able to delete cells/rows in the table view
         if editingStyle == UITableViewCell.EditingStyle.delete {
+            
+            for region in CoreLocationManager.sharedLocationManager.locationManager.monitoredRegions {
+                if region.identifier == reminders[indexPath.row].value(forKey: "reminderDescription") as? String {
+                    CoreLocationManager.sharedLocationManager.locationManager.stopMonitoring(for: region)
+                }
+            }
+            
             CoreDataManager.sharedCoreDataManager.deleteReminder(reminder: reminders[indexPath.row] as! Reminder) // deletes record from CoreData
             reminders.remove(at: indexPath.row) // removes reminder from local collection of reminders
             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic) // deletes the row in the table view

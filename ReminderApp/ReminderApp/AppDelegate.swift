@@ -14,16 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        CoreLocationManager.sharedLocationManager.locationManager.requestAlwaysAuthorization()
-        
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-            print("granted: \(granted)")
-        }
-        
         UNUserNotificationCenter.current().delegate = self
-        
         return true
     }
 
@@ -56,5 +48,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .sound])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let alertController = UIAlertController(title: "Attention", message: "Once a notification has been triggered, you must delete the reminder or select and resave it for the reminder to be activated again.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alertController.addAction(action)
+        self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
+        completionHandler()
     }
 }

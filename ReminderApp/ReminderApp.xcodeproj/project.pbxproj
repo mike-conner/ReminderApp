@@ -24,12 +24,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1302EC302301A5B900E5D9FA /* kroger.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = kroger.gpx; sourceTree = "<group>"; };
 		130B7D4F22EBA81E00A7907D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		130B7D5522EBB65300A7907D /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		130B7D5722EBD35700A7907D /* Reminder+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reminder+CoreDataClass.swift"; sourceTree = "<group>"; };
 		130B7D5822EBD35700A7907D /* Reminder+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reminder+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		134A61F222F5C2570057EB0B /* CoreLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationManager.swift; sourceTree = "<group>"; };
-		137C207F22F772C600E694FC /* test.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = test.gpx; sourceTree = "<group>"; };
+		137C207F22F772C600E694FC /* home.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = home.gpx; sourceTree = "<group>"; };
 		13C021C122E904030094192D /* ReminderApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReminderApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13C021C422E904030094192D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		13C021C622E904030094192D /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -89,12 +90,13 @@
 			isa = PBXGroup;
 			children = (
 				13C021C622E904030094192D /* MasterViewController.swift */,
+				134A61F222F5C2570057EB0B /* CoreLocationManager.swift */,
 				13C021E522E910510094192D /* ReminderDetailController.swift */,
 				130B7D4F22EBA81E00A7907D /* MapViewController.swift */,
 				13F0DC4B22EFC0700067D852 /* LocationSearchTable.swift */,
 				130B7D5522EBB65300A7907D /* CoreDataManager.swift */,
-				134A61F222F5C2570057EB0B /* CoreLocationManager.swift */,
-				137C207F22F772C600E694FC /* test.gpx */,
+				137C207F22F772C600E694FC /* home.gpx */,
+				1302EC302301A5B900E5D9FA /* kroger.gpx */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -165,6 +167,11 @@
 				TargetAttributes = {
 					13C021C022E904030094192D = {
 						CreatedOnToolsVersion = 10.3;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};

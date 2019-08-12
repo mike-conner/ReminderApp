@@ -28,16 +28,7 @@ class CoreLocationManager: NSObject {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         
-        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-            if granted {
-                print("notification permission granted!")
-            }
-        }
-        print(locationManager.monitoredRegions.count)
-        for fence in locationManager.monitoredRegions {
-            print(fence.description)
-        }
-        
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in }
     }    
     
     func createGeoFence(lat: Double, lon: Double, identifier: String, onEntry: Bool) {
@@ -65,14 +56,10 @@ class CoreLocationManager: NSObject {
         }
     }
     
-    func handleEvent(for region: CLRegion) {
-        
-    }
-    
     func addTrigger(for region: CLRegion) {
         let content = UNMutableNotificationContent()
         content.title = "Reminder:"
-        content.body = locationManager.monitoredRegions.description
+        content.body = region.identifier
         let trigger = UNLocationNotificationTrigger(region: region, repeats: false)
         addRequestToNotificationCenter(for: trigger, with: content)
     }
@@ -80,9 +67,7 @@ class CoreLocationManager: NSObject {
     func addRequestToNotificationCenter(for trigger: UNLocationNotificationTrigger, with content: UNMutableNotificationContent) {
         let uuidString = UUID().uuidString
         let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
-        center.add(request) { (error) in
-            print("Error adding request: \(String(describing: error))")
-        }
+        center.add(request)
     }
     
 }
@@ -94,32 +79,5 @@ extension CoreLocationManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("did fail with error")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedAlways {
-            print("authorization changed")
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        print("did enter region")
-//        handleEvent(for: region)
-//        removeGeoFence(for: region)
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        print("did exit region")
-//        handleEvent(for: region)
-//        removeGeoFence(for: region)
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
-        print(region.description)
-    }
-    
-    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
-        print(error.localizedDescription)
     }
 }
